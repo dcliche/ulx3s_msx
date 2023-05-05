@@ -436,6 +436,7 @@ module msx
       
   video vga (
     .clk(clk_vga),
+    .reset(!n_hard_reset),
     .vga_r(red),
     .vga_g(green),
     .vga_b(blue),
