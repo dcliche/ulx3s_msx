@@ -1,5 +1,6 @@
 `default_nettype none
 // `define svi
+`define DIGILENT_PS2_PMOD
 module msx
 #(
   parameter c_sdram       = 1, // 1:SDRAM, 0:BRAM 32K
@@ -18,8 +19,10 @@ module msx
   // Keyboard
   output        usb_fpga_pu_dp,
   output        usb_fpga_pu_dn,
+`ifndef DIGILENT_PS2_PMOD
   inout         ps2Clk,
   inout         ps2Data,
+`endif
   // Audio
   output [3:0]  audio_l,
   output [3:0]  audio_r,
@@ -344,8 +347,13 @@ module msx
     // Get PS/2 keyboard events
   ps2 ps2_kbd (
      .clk(cpuClock),
+`ifdef DIGILENT_PS2_PMOD
+     .ps2_clk(gn[1]),
+     .ps2_data(gn[3]),
+`else
      .ps2_clk(ps2Clk),
      .ps2_data(ps2Data),
+`endif
      .ps2_key(ps2_key)
   );
 
