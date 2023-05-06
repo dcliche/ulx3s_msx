@@ -43,7 +43,7 @@ class osd:
     self.timer = Timer(3)
     self.irq_handler(0)
     self.irq_handler_ref = self.irq_handler # allocation happens here
-    self.spi_request = Pin(0, Pin.IN, Pin.PULL_UP)
+    self.spi_request = Pin(22, Pin.IN, Pin.PULL_UP)
     self.spi_request.irq(trigger=Pin.IRQ_FALLING, handler=self.irq_handler_ref)
 
   def init_spi(self):
@@ -59,8 +59,8 @@ class osd:
 
   @micropython.viper
   def init_pinout_sd(self):
-    self.gpio_cs   = const(5)
-    self.gpio_sck  = const(16)
+    self.gpio_cs   = const(19)
+    self.gpio_sck  = const(26)
     self.gpio_mosi = const(4)
     self.gpio_miso = const(12)
 
